@@ -1,33 +1,29 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <title>Terminal</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <title>Terminal do Amor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
-      margin: 0;
-      padding: 0;
       background-color: #000;
       color: #00ff88;
       font-family: 'Courier New', monospace;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      min-height: 100vh;
-      box-sizing: border-box;
-    }
-
-    .container {
-      max-width: 100%;
-      padding: 5vw;
-      box-sizing: border-box;
+      padding: 20px;
+      font-size: 12px;
+      overflow-x: hidden;
     }
 
     .terminal {
+      white-space: pre-wrap;
+      overflow-x: auto;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+
+    pre {
       white-space: pre;
       overflow-x: auto;
-      font-size: clamp(10px, 2.5vw, 18px);
     }
 
     .cursor {
@@ -42,12 +38,17 @@
       50% { opacity: 0; }
       100% { opacity: 1; }
     }
+
+    @media (max-width: 600px) {
+      body {
+        font-size: 10px;
+        padding: 10px;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="terminal" id="terminal"></div><div class="cursor" id="cursor"></div>
-  </div>
+  <div class="terminal" id="terminal"></div><div class="cursor" id="cursor"></div>
 
   <script>
     const terminal = document.getElementById("terminal");
@@ -61,14 +62,14 @@
     const asciiCoraçao = `
              |
               ||
-          --\\ \\||
-           --\\ \\||
-            --\\ \\||
-             --\\ \\|
-              --\\ \\
-                 \\ \\
-                  \\ \\
-                   \\ \\
+          --\\ \\||  
+           --\\ \\||  
+            --\\ \\||  
+             --\\ \\|  
+              --\\ \\  
+                 \\ \\  
+                  \\ \\  
+                   \\ \\  
                   MMMMMMMMM                         MMMMMMMMM
               MMMMMMMMMMMMMMMMMM               MMMMMMMMMMMMMMMMMM
            MMMMMMMXXXXXXXXXXMMMMMMM         MMMMMMMXXXXXXXXXXMMMMMMM
@@ -143,10 +144,12 @@
     }
 
     function showCoraçao() {
+      const pre = document.createElement('pre');
+      terminal.appendChild(pre);
       let i = 0;
       function typeHeart() {
         if (i < asciiCoraçao.length) {
-          terminal.textContent += asciiCoraçao[i++];
+          pre.textContent += asciiCoraçao[i++];
           setTimeout(typeHeart, 1);
         } else {
           setTimeout(showMensagemFinal, 1000);
